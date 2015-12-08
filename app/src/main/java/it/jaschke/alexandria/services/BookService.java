@@ -2,11 +2,16 @@ package it.jaschke.alexandria.services;
 
 import android.app.IntentService;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +27,7 @@ import java.net.URL;
 import it.jaschke.alexandria.MainActivity;
 import it.jaschke.alexandria.R;
 import it.jaschke.alexandria.data.AlexandriaContract;
+import it.jaschke.alexandria.utils.DisplayToast;
 
 
 /**
@@ -38,20 +44,27 @@ public class BookService extends IntentService {
 
     public static final String EAN = "it.jaschke.alexandria.services.extra.EAN";
 
+    private Handler mHandler;
+
     public BookService() {
         super("Alexandria");
+
+        mHandler = new Handler();
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             final String action = intent.getAction();
-            if (FETCH_BOOK.equals(action)) {
+            if (FETCH_BOOK.equals(action) && isNetworkAvailable()) {
                 final String ean = intent.getStringExtra(EAN);
                 fetchBook(ean);
-            } else if (DELETE_BOOK.equals(action)) {
+            } else if (DELETE_BOOK.equals(action) && isNetworkAvailable()) {
                 final String ean = intent.getStringExtra(EAN);
                 deleteBook(ean);
+            } else if (!isNetworkAvailable()){
+
+                mHandler.post(new DisplayToast(this, "Sorry, you need data connection to perform a search."));
             }
         }
     }
@@ -229,5 +242,12 @@ public class BookService extends IntentService {
             getContentResolver().insert(AlexandriaContract.CategoryEntry.CONTENT_URI, values);
             values= new ContentValues();
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
  }
