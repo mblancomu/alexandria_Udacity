@@ -24,6 +24,9 @@
     <string name="action_share">Share</string>
     <string name="back_button">go back</string>
     <string name="share_text">A must read book: </string>
+    <string name="pref_start_fragment" translatable="false">pref_startFragment</string>
+    <string name="unknown_author">No Author found</string>
+    <string name="network_failed">Network is not available.</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="about_text">This application gets book information from a Google API. All titles, cover images, and author information come from there.

@@ -4,8 +4,11 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/padding_left_16dp"
+        android:paddingRight="@dimen/padding_left_16dp">
+
         <ScrollView android:layout_width="fill_parent"
                     android:layout_height="0dp"
                     android:fillViewport="false"
@@ -44,12 +47,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/fullBookSubTitle"
-                    android:maxLines="5"
+                    android:maxLines="3"
                     android:ellipsize="end"
-                    android:textSize="18sp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_alignTop="@+id/fullBookCover"
+                    android:layout_below="@+id/fullBookTitle"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:paddingTop="10dp"
                     android:layout_toRightOf="@+id/fullBookCover"
                     android:layout_toEndOf="@+id/fullBookCover"/>
 
@@ -59,9 +62,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/fullBookDesc"
                     android:ellipsize="end"
-                    android:layout_marginLeft="10dp"
+                    android:paddingTop="16dp"
                     android:layout_below="@+id/fullBookCover"
-                    android:layout_margin="10dp"
                     />
 
 
@@ -70,8 +72,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/fullBookDesc"
-                    android:layout_marginTop="10dp"
-                    android:padding="10dp">
+                    android:paddingTop="16dp"
+                    android:paddingBottom="@dimen/margin_16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -88,20 +90,6 @@
                         android:textStyle="bold"
                         android:gravity="right|top"/>
                 </LinearLayout>
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/back_button"
-                    android:id="@+id/backButton"
-                    android:onClick="goBack"
-                    android:src="@drawable/ic_action_undo"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_gravity="right|top"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/fullBookTitle"
-                    android:layout_alignEnd="@+id/fullBookTitle"/>
-
 
             </RelativeLayout>
 
@@ -125,6 +113,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 </FrameLayout>
